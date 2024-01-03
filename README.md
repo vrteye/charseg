@@ -47,3 +47,17 @@ CREATE TABLE `breaking_result` (
 ```
 
 20231220：新增PDF文档解析，段落还原方法。
+
+20240104：  
+变更如下  
+变更breaking_result表id为自增  
+```mysql
+ALTER TABLE `breaking_result`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+```
+数据基础工具：[database.py](database%2Fdatabase.py)新增批量处理逻辑；  
+数据库操作方法：[other_data.py](database%2Fother_data.py)新增insert_breaking_results_batch数据批量插入函数；  
+数据集合分割：[main.py](main.py)batchify函数，将一个大的数据集合分割成小的批次，便于批量处理；  
+数据批量插入：[main.py](main.py)process_json_result函数，使用列表推导准备插入数据、数据插入。  
+能够有效减少与数据库的通信次数，提升运算效率。
+
